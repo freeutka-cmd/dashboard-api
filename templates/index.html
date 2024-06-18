@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Bot Dashboard API Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Discord Bot Dashboard API Tool</h1>
+        <p class="lead">Welcome to the Discord Bot Dashboard API Tool. Here you can manage your Discord server using a discord bot and simple web interface.</p>
+        
+        <div class="container">
+            <h1 class="mt-5">Setup tutorial</h1>
+            <h2>1. Download site from https://github.com/freeutka-cmd/dashboard-api/releases</h2>
+            <h2>2. Export all files to your bot directory</h2>
+            <h2>3. Open app.py, and replace DISCORD_BOT_TOKEN with your bot token.</h2>
+            <h2>4. Run command <code>pip install -r requirements.txt</code></h2>
+            <h2>5. Run command <code>python app.py</code></h2>
+            <h2>6. In cmd shows the site ip, standart is <code>http://127.0.0.1:5000/</code> or <code>http://localhost:5000/</code></h2>
+            <h2>7. Enjoy!</h2>
+        </div> 
+
+        <div class="container">
+            <h1 class="mt-5">Discord Bot Dashboard API Tool (Forms not work while you paste DISCORD_BOT_TOKEN into app.py)</h1>
+            <ul class="list-group mt-3">
+                <li class="list-group-item"><a href="{{ url_for('view_channels_form') }}" target="_blank">View Channels</a></li>
+                <li class="list-group-item"><a href="{{ url_for('view_roles_form') }}" target="_blank">View Roles</a></li>
+                <li class="list-group-item"><a href="{{ url_for('view_members_form') }}" target="_blank">View Members</a></li>
+                <li class="list-group-item"><a href="{{ url_for('create_channel_form') }}" target="_blank">Create Channel</a></li>
+                <li class="list-group-item"><a href="{{ url_for('delete_channel_form') }}" target="_blank">Delete Channel</a></li>
+                <li class="list-group-item"><a href="{{ url_for('create_role_form') }}" target="_blank">Create Role</a></li>
+                <li class="list-group-item"><a href="{{ url_for('delete_role_form') }}" target="_blank">Delete Role</a></li>
+                <li class="list-group-item"><a href="{{ url_for('kick_member_form') }}" target="_blank">Kick Member</a></li>
+                <li class="list-group-item"><a href="{{ url_for('ban_member_form') }}" target="_blank">Ban Member</a></li>
+                <li class="list-group-item"><a href="{{ url_for('send_message_form') }}" target="_blank">Send Message</a></li>
+            </ul>
+        </div>    
+        <pre>
+        </pre>
+        <h2>How to Use</h2>
+        <ul>
+            <li><strong>View Channels:</strong> Send a GET request to <code>/channels?guild_id=YOUR_GUILD_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>Create Channel:</strong> Send a POST request to <code>/channels</code> with JSON data: <code>{"guild_id": "YOUR_GUILD_ID", "channel_name": "CHANNEL_NAME"}</code>. (Works only where there is a bot)</li>
+            <li><strong>Delete Channel:</strong> Send a DELETE request to <code>/channels/CHANNEL_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>View Roles:</strong> Send a GET request to <code>/roles?guild_id=YOUR_GUILD_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>Create Role:</strong> Send a POST request to <code>/roles</code> with JSON data: <code>{"guild_id": "YOUR_GUILD_ID", "role_name": "ROLE_NAME"}</code>. (Works only where there is a bot)</li>
+            <li><strong>Delete Role:</strong> Send a DELETE request to <code>/roles/ROLE_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>View Members:</strong> Send a GET request to <code>/members?guild_id=YOUR_GUILD_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>Kick Member:</strong> Send a POST request to <code>/members/MEMBER_ID/kick?guild_id=YOUR_GUILD_ID</code>. (Works only where there is a bot)</li>
+            <li><strong>Ban Member:</strong> Send a POST request to <code>/members/MEMBER_ID/ban</code> with JSON data: <code>{"reason": "REASON"}</code>. (Works only where there is a bot)</li>
+            <li><strong>Send Message:</strong> Send a POST request to <code>/messages</code> with JSON data: <code>{"channel_id": "CHANNEL_ID", "message": "MESSAGE_CONTENT"}</code>. (Works only where there is a bot)</li>
+        </ul>
+
+        <h2>Examples</h2>
+        <h3>View Channels</h3>
+        <pre>
+curl -X GET "http://localhost:5000/channels?guild_id=YOUR_GUILD_ID"
+        </pre>
+
+        <h3>Create a Channel</h3>
+        <pre>
+curl -X POST http://localhost:5000/channels -H "Content-Type: application/json" -d '{"guild_id": "YOUR_GUILD_ID", "channel_name": "new-channel"}'
+        </pre>
+
+        <h3>Delete a Channel</h3>
+        <pre>
+curl -X DELETE http://localhost:5000/channels/CHANNEL_ID
+        </pre>
+
+        <h3>View Roles</h3>
+        <pre>
+curl -X GET "http://localhost:5000/roles?guild_id=YOUR_GUILD_ID"
+        </pre>
+
+        <h3>Create a Role</h3>
+        <pre>
+curl -X POST http://localhost:5000/roles -H "Content-Type: application/json" -d '{"guild_id": "YOUR_GUILD_ID", "role_name": "new-role"}'
+        </pre>
+
+        <h3>Delete a Role</h3>
+        <pre>
+curl -X DELETE "http://localhost:5000/roles/ROLE_ID?guild_id=YOUR_GUILD_ID"
+        </pre>
+
+        <h3>View Members</h3>
+        <pre>
+curl -X GET "http://localhost:5000/members?guild_id=YOUR_GUILD_ID"
+        </pre>
+
+        <h3>Kick a Member</h3>
+        <pre>
+curl -X POST "http://localhost:5000/members/MEMBER_ID/kick?guild_id=YOUR_GUILD_ID"
+        </pre>
+
+        <h3>Ban a Member</h3>
+        <pre>
+curl -X POST http://localhost:5000/members/MEMBER_ID/ban -H "Content-Type: application/json" -d '{"reason": "Violation of rules"}'
+        </pre>
+
+        <h3>Send a Message</h3>
+        <pre>
+curl -X POST http://localhost:5000/messages -H "Content-Type: application/json" -d '{"channel_id": "CHANNEL_ID", "message": "Hello, world!"}'
+        </pre>
+
+        <h2>API Endpoints</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Endpoint</th>
+                    <th>Method</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>/channels</td>
+                    <td>GET</td>
+                    <td>List all channels in a guild.</td>
+                </tr>
+                <tr>
+                    <td>/channels</td>
+                    <td>POST</td>
+                    <td>Create a new channel in a guild.</td>
+                </tr>
+                <tr>
+                    <td>/channels/&lt;channel_id&gt;</td>
+                    <td>DELETE</td>
+                    <td>Delete a channel.</td>
+                </tr>
+                <tr>
+                    <td>/roles</td>
+                    <td>GET</td>
+                    <td>List all roles in a guild.</td>
+                </tr>
+                <tr>
+                    <td>/roles</td>
+                    <td>POST</td>
+                    <td>Create a new role in a guild.</td>
+                </tr>
+                <tr>
+                    <td>/roles/&lt;role_id&gt;</td>
+                    <td>DELETE</td>
+                    <td>Delete a role.</td>
+                </tr>
+                <tr>
+                    <td>/members</td>
+                    <td>GET</td>
+                    <td>List all members in a guild.</td>
+                </tr>
+                <tr>
+                    <td>/members/&lt;member_id&gt;/kick</td>
+                    <td>POST</td>
+                    <td>Kick a member from a guild.</td>
+                </tr>
+                <tr>
+                    <td>/members/&lt;member_id&gt;/ban</td>
+                    <td>POST</td>
+                    <td>Ban a member from a guild.</td>
+                </tr>
+                <tr>
+                    <td>/messages</td>
+                    <td>POST</td>
+                    <td>Send a message to a channel.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <center><footer><strong>Made by freeutka</strong></footer></center>
+    <pre>
+    </pre>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
